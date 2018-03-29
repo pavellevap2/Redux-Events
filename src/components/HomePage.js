@@ -15,9 +15,12 @@ const Homepage = props => {
             date={`${
               event.dates.start.localDate
             } : ${event.dates.start.localTime.slice(0, 5)} `}
+            place={event['_embedded'].venues[0].name}
+            id={event.id}
           />
         ))}
       </ul>
+      <button onClick={() => console.log(events)}>all</button>
     </div>
   )
 }

@@ -22,3 +22,5 @@ export const getFormData = state => {
 }
 
 export const getEvents = state => state.events
+
+export const getEvent = state => state.event

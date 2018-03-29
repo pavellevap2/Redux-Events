@@ -6,6 +6,4 @@ const mapStateToProps = state => ({
   events: getEvents(state),
 })
 
-const mapDispatchToProps = dispatch => ({})
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, undefined)(HomePage)

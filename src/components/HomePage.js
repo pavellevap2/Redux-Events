@@ -1,27 +1,56 @@
 import React from 'react'
-import SidebarContainer from '../containers/SidebarContainer'
-import Event from './Event'
+import * as R from 'ramda'
+import { Link } from 'react-router-dom'
 
-const Homepage = props => {
-  const { events } = props
+const HomePage = props => {
+  const {
+    countries,
+    selectCountry,
+    countryCode,
+    inputCity,
+    city,
+    inputClassification,
+    classification,
+    classifications,
+    addToClassifications,
+    fetchEvents,
+  } = props
+  const contriesList = R.keys(countries)
+  const test = classifications
+    .reduce((acc, x) => [...acc, `classificationName=${x}`], [])
+    .join('&')
+
   return (
     <div>
-      <SidebarContainer />
-      <ul>
-        {events.map((event, i) => (
-          <Event
-            name={event.name}
-            i={i}
-            date={`${
-              event.dates.start.localDate
-            } : ${event.dates.start.localTime.slice(0, 5)} `}
-            place={event['_embedded'].venues[0].name}
-            id={event.id}
-          />
+      <select value={countryCode} onChange={e => selectCountry(e.target.value)}>
+        {contriesList.map((country, i) => (
+          <option key={i} value={countries[country]}>
+            {country}
+          </option>
         ))}
-      </ul>
-      <button onClick={() => console.log(events)}>all</button>
+      </select>
+      <input
+        type="text"
+        value={city}
+        onChange={e => inputCity(e.target.value)}
+      />
+      <input
+        type="text"
+        value={classification}
+        onChange={e => inputClassification(e.target.value)}
+        onKeyPress={e =>
+          e.key == 'Enter' ? addToClassifications(e.target.value) : null
+        }
+      />
+      <div>
+        {classifications.map((classification, i) => (
+          <button key={i}>{classification}</button>
+        ))}
+      </div>
+      <Link to="/events" onClick={() => fetchEvents()}>
+        search{' '}
+      </Link>
     </div>
   )
 }
-export default Homepage
+export default HomePage

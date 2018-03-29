@@ -40,7 +40,6 @@ class Event extends React.Component {
         <img src={event.images[0].url} alt="img" />
         <p>{event[`_embedded`].venues[0].name}</p>
         <a href={event['_embedded'].venues[0].url}>Buy ticket</a>
-        <button onClick={() => console.log(price)}>test</button>
       </li>
     )
   }

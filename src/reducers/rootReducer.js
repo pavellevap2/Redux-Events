@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import searchFormDataReducer from './searchFormData'
 import events from './events'
-import event from './event'
+import isEventsLoading from './isEventsLoading'
 
 const rootReducer = combineReducers({
   searchFormDataReducer,
   events,
-  event,
+  isEventsLoading,
 })
 
 export default rootReducer

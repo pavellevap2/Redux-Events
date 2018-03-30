@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import HomePage from '../components/HomePage'
+import SidebarContainer from '../components/Sidebar'
 import {
   getCountries,
   getCountry,
@@ -34,4 +34,4 @@ const mapDispatchToProps = dispatch => ({
   fetchEvents: () => dispatch(fetchEvents()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer)

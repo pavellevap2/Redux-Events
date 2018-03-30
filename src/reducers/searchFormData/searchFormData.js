@@ -6,6 +6,7 @@ import {
 } from '../../actions/actions'
 
 const COUNTRIES = {
+  '...': null,
   USA: 'US',
   Canada: 'CA',
   France: 'FR',

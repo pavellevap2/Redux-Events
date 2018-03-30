@@ -7,20 +7,21 @@ import { injectGlobal, ThemeProvider } from 'styled-components'
 
 injectGlobal`
   body{
-    padding:0
-    margin:0
-  }
+    padding:0;
+    margin:0l
+  };
   li{
-    list-style:none
-  }
+    list-style:none;
+  };
   a{
-    text-decoratione:none
+    text-decoration:none;
   }
 `
 const mainTheme = {
-  primary: 'white',
-  secondary: 'red',
-  homePageBackground: 'black',
+  primary: '#DC3D24',
+  secondary: '#E3AE57',
+  tertiary: '#FFFFFF',
+  backgroundMain: '#232B2B',
 }
 
 ReactDOM.render(

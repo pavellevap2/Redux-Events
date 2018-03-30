@@ -1,8 +1,12 @@
 export const getCountries = state => state.searchFormDataReducer.countries
+
 export const getCountry = state => state.searchFormDataReducer.country
+
 export const getCity = state => state.searchFormDataReducer.city
+
 export const getClassification = state =>
   state.searchFormDataReducer.classification
+
 export const getClassifications = state =>
   state.searchFormDataReducer.classifications
 
@@ -15,12 +19,10 @@ export const getFormData = state => {
     : ''
 
   const countryCode = data.country.length ? `countryCode=${data.country}` : ''
-
   const city = data.city.length ? `city=${data.city}` : ''
-
-  return `${countryCode}&${city}${classifications}`
+  return `${countryCode}&${city}&${classifications}`
 }
 
 export const getEvents = state => state.events
 
-export const getEvent = state => state.event
+export const getEventsLoading = state => state.isEventsLoading

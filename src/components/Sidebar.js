@@ -20,13 +20,13 @@ const SelectCountry = styled.select`
   background-color: ${props => props.theme.backgroundMain};
   color: ${props => props.theme.secondary};
   font-weight: bold;
-  font-size: 2em;
+  font-size: ${props => props.theme.L};
   border: 1px solid ${props => props.theme.primary}};
 `
 const InputData = styled.input`
   background-color: ${props => props.theme.backgroundMain};
   padding:0.1em;
-  font-size: 1.5em;
+  font-size: ${props => props.theme.L};
   color: ${props => props.theme.secondary};
   font-weight:bold;
   border:1px solid ${props => props.theme.primary}
@@ -42,7 +42,7 @@ const Classifications = styled.div`
 `
 const Classification = styled.span`
   color: ${props => props.theme.primary};
-  font-size: 1.2em;
+  font-size: ${props => props.theme.L};
   margin-right: 7px;
   font-weight: 400;
   border: 1px solid ${props => props.theme.secondary};
@@ -56,9 +56,9 @@ const SearchBtnBlock = styled.div`
 const SearchBtn = styled.button`
   border: 2px solid ${props => props.theme.primary};
   height: 2.7em;
-  width: 80%;
+  width: 75%;
   font-weight: bold;
-  font-size: 1.32em;
+  font-size: ${props => props.theme.L};
   color: ${props => props.theme.secondary};
   text-align: center;
   background-color: ${props => props.theme.backgroundMain};
@@ -68,68 +68,80 @@ const SearchBtn = styled.button`
   }
 `
 
-const Sidebar = ({
-  countries,
-  selectCountry,
-  countryCode,
-  inputCity,
-  city,
-  inputClassification,
-  classification,
-  classifications,
-  addToClassifications,
-  fetchEvents,
-}) => {
-  const contriesList = R.keys(countries)
-  //передедать в класс
-  return (
-    <SidebarContainer>
-      <Logo />
-      <EventDataForm
-        onSubmit={e => {
-          e.preventDefault()
-          fetchEvents()
-        }}
-      >
-        <SelectCountry
-          value={countryCode}
-          onChange={e => selectCountry(e.target.value)}
-        >
-          {contriesList.map((country, i) => (
-            <option key={i} value={countries[country]}>
-              {country}
-            </option>
-          ))}
-        </SelectCountry>
-        <InputData
-          placeholder="Input city"
-          type="text"
-          value={city}
-          onChange={e => inputCity(e.target.value)}
-        />
-        <InputData
-          placeholder="Input event tage"
-          type="text"
-          value={classification}
-          onChange={e => inputClassification(e.target.value)}
-          onKeyPress={e => {
-            if (e.key === 'Enter' && classifications.length <= 7) {
-              e.preventDefault()
-              addToClassifications(e.target.value)
-            }
-          }}
-        />
-        <Classifications>
-          {classifications.map((classification, i) => (
-            <Classification key={i}>{`#${classification}`}</Classification>
-          ))}
-        </Classifications>
-        <SearchBtnBlock>
-          <SearchBtn>SEARCH</SearchBtn>
-        </SearchBtnBlock>
-      </EventDataForm>
-      <button onClick={() => console.log(countryCode)}>test</button>
-    </SidebarContainer>
-  )
+class Sidebar extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  submitFormData(e) {
+    e.preventDefault()
+    this.props.fetchEvents()
+  }
+
+  selectCountry(country) {
+    this.props.selectCountry(country)
+  }
+  inputCity(cityName) {
+    this.props.inputCity(cityName)
+  }
+  inputClassification(classification) {
+    this.props.inputClassification(classification)
+  }
+  addClassification(e) {
+    if (e.key === 'Enter' && this.props.classifications.length <= 7) {
+      e.preventDefault()
+      this.props.addToClassifications(e.target.value)
+    }
+  }
+
+  render() {
+    const {
+      countries,
+      countryCode,
+      city,
+      classification,
+      classifications,
+    } = this.props
+
+    const contriesList = R.keys(countries)
+
+    return (
+      <SidebarContainer>
+        <Logo />
+        <EventDataForm onSubmit={e => this.submitFormData(e)}>
+          <SelectCountry
+            value={countryCode}
+            onChange={e => this.selectCountry(e.target.value)}
+          >
+            {contriesList.map((country, i) => (
+              <option key={i} value={countries[country]}>
+                {country}
+              </option>
+            ))}
+          </SelectCountry>
+          <InputData
+            placeholder="Input city"
+            type="text"
+            value={city}
+            onChange={e => this.inputCity(e.target.value)}
+          />
+          <InputData
+            placeholder="Input event tage"
+            type="text"
+            value={classification}
+            onChange={e => this.inputClassification(e.target.value)}
+            onKeyPress={e => this.addClassification(e)}
+          />
+          <Classifications>
+            {classifications.map((classification, i) => (
+              <Classification key={i}>{`#${classification}`}</Classification>
+            ))}
+          </Classifications>
+          <SearchBtnBlock>
+            <SearchBtn>SEARCH</SearchBtn>
+          </SearchBtnBlock>
+        </EventDataForm>
+      </SidebarContainer>
+    )
+  }
 }
 export default Sidebar

@@ -1,14 +1,14 @@
 import ReactDOM from 'react-dom'
-import Root from './components/Root'
+import RootContainer from './containers/RootContainer'
 import React from 'react'
 import { Provider } from 'react-redux'
 import store from './configureStore'
-import { injectGlobal, ThemeProvider } from 'styled-components'
+import { injectGlobal } from 'styled-components'
 
 injectGlobal`
   body{
     padding:0;
-    margin:0l
+    margin:0;
   };
   li{
     list-style:none;
@@ -17,18 +17,10 @@ injectGlobal`
     text-decoration:none;
   }
 `
-const mainTheme = {
-  primary: '#DC3D24',
-  secondary: '#E3AE57',
-  tertiary: '#FFFFFF',
-  backgroundMain: '#232B2B',
-}
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={mainTheme}>
-      <Root />
-    </ThemeProvider>
+    <RootContainer />
   </Provider>,
   document.getElementById('root'),
 )

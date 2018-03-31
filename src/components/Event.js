@@ -28,10 +28,10 @@ const EventTitle = styled.h2`
 const EventText = styled.span`
   color: ${props => props.theme.primary};
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: ${props => props.theme.S};
 `
 const EventElem = styled.div`
-  font-size: 1.3em;
+  font-size: ${props => props.theme.M};
   font-weight: bold;
   padding: 0.4em 0;
 
@@ -47,7 +47,7 @@ const EventTicket = styled.a`
   border: 1px solid ${props => props.theme.primary};
   background-color: ${props => props.theme.backgroundMain} !important;
   color: ${props => props.theme.secondary};
-  font-size: 1em;
+  font-size: ${props => props.theme.S};
   padding: 0.7em 4em;
   &:hover {
     transition: 2s;
@@ -78,10 +78,12 @@ class Event extends React.Component {
               <EventText>Event date: </EventText>
               {event.dates.start.localDate}
             </EventElem>
-            <EventElem>
-              <EventText>Event time: </EventText>
-              {event.dates.start.localTime.slice(0, 5)}
-            </EventElem>
+            {event.dates.start.localTime ? (
+              <EventElem>
+                <EventText>Event time: </EventText>
+                {event.dates.start.localTime.slice(0, 5)}
+              </EventElem>
+            ) : null}
             <EventElem>
               <EventText>Country: </EventText>{' '}
               {event['_embedded'].venues[0].country.name}
@@ -94,7 +96,7 @@ class Event extends React.Component {
               <EventText>Area: </EventText>
               {event['_embedded'].venues[0].name}
             </EventElem>
-            {info != undefined ? (
+            {info !== undefined ? (
               <EventElem>
                 <EventText
                   onClick={() => this.setState({ isInfoOpen: !isInfoOpen })}
@@ -105,7 +107,7 @@ class Event extends React.Component {
               </EventElem>
             ) : null}
 
-            {price != undefined ? (
+            {price !== undefined ? (
               <EventElem>
                 <p>
                   <EventText>Min price: </EventText>

@@ -25,4 +25,6 @@ export const getFormData = state => {
 
 export const getEvents = state => state.events
 
-export const getEventsLoading = state => state.isEventsLoading
+export const getEventsLoading = state => state.eventsLoadingProcess
+
+export const getThemeName = state => state.themeName
